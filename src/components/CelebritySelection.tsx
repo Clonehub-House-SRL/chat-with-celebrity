@@ -3,7 +3,7 @@ import { Box, Collapse, useDisclosure } from '@chakra-ui/react';
 import { useToast } from '@chakra-ui/react';
 import { StoryProps } from '../pages';
 
-const Story = ({ story }: StoryProps) => {
+const CelebritySelection = ({ story }: StoryProps) => {
   const { isOpen, onToggle } = useDisclosure();
   const toast = useToast();
 
@@ -49,4 +49,4 @@ const Story = ({ story }: StoryProps) => {
   );
 };
 
-export default Story;
+export default CelebritySelection;

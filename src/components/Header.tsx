@@ -6,17 +6,17 @@ import { signInAnonymously } from 'firebase/auth';
 import { auth } from '../../firebase';
 
 const Header = () => {
-  const [user] = useAuthState(auth);
+  // const [user] = useAuthState(auth);
 
   const anonymousSignIn = async () => {
-    await signInAnonymously(auth);
+    // await signInAnonymously(auth);
   };
 
-  const headerTitle =
-    `Welcome to your daily horror story` + (user?.uid ? ' - chat' : '');
+  const headerTitle = '';
+  // `Welcome to your daily horror story` + (user?.uid ? ' - chat' : '');
 
   const signOut = () => {
-    auth.signOut();
+    // auth.signOut();
   };
 
   return (
@@ -53,7 +53,7 @@ const Header = () => {
           </defs>
         </svg>
       </div>
-      {user ? (
+      {/* {user ? (
         <Button
           onClick={signOut}
           className="sign-out"
@@ -73,7 +73,7 @@ const Header = () => {
         >
           Chat
         </Button>
-      )}
+      )} */}
     </header>
   );
 };

@@ -6,14 +6,17 @@ export default function Document() {
       <Head>
         <meta property="og:title" content="Your daily horror story" />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://www.daily-horror-story.com/" />
+        <meta
+          property="og:url"
+          content="https://www.chat-with-celebrities.com/"
+        />
         <meta
           property="og:image"
           content="https://www.daily-horror-story.com/header-image-halloween.jpg"
         />
         <meta
           property="og:description"
-          content="In daily bone-chilling articles, we dare to venture into the heart of darkness to unveil spine-tingling tales of horror."
+          content="This is your chance to talk to your favorite celebrity. Don't piss them off."
         />
         <link
           rel="apple-touch-icon"
