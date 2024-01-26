@@ -3,6 +3,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import Image from 'next/image';
 import { Message } from 'src/types';
 import { auth } from '../../../firebase';
+import css from './MessageComponent.module.css';
 
 type MessageComponentProps = {
   message: Message;
@@ -12,17 +13,21 @@ const MessageComponent = ({ message }: MessageComponentProps) => {
   const [user] = useAuthState(auth);
 
   return (
-    <div className={`chat-bubble ${message.uid === user?.uid ? 'right' : ''}`}>
+    <div
+      className={`${css.chatBubble} ${
+        message.uid === user?.uid ? css.right : ''
+      }`}
+    >
       <Image
-        className="chat-bubble__left"
+        className={css.chatBubble__left}
         src={message.avatar}
         alt="user avatar"
         width={35}
         height={35}
       />
-      <div className="chat-bubble__right">
-        <p className="user-name">{message.name}</p>
-        <p className="user-message">{message.text}</p>
+      <div className={css.chatBubble__right}>
+        <p className={css.userName}>{message.name}</p>
+        <p className={css.userMessage}>{message.text}</p>
       </div>
     </div>
   );

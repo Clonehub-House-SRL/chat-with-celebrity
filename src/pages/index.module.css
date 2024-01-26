@@ -1,0 +1,22 @@
+.mainPage {
+  text-align: center;
+}
+
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  vertical-align: middle;
+  align-items: center;
+  padding: 20px;
+  height: 100vh;
+  & .spinner {
+    position: absolute;
+    top: 50%;
+    height: 100vh;
+  }
+}
+
+.mainContent p {
+  font-size: 18px;
+  line-height: 1.6;
+}

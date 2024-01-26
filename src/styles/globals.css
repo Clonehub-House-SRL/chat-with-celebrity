@@ -7,39 +7,7 @@ body {
   line-height: 100vh;
 }
 
-@keyframes squiggly-anim {
-  0% {
-    filter: url('#squiggly-0');
-  }
-  25% {
-    filter: url('#squiggly-1');
-  }
-}
-
-.main-page {
-  text-align: center;
-}
-
-.main-content {
-  display: flex;
-  flex-direction: column;
-  vertical-align: middle;
-  align-items: center;
-  padding: 20px;
-  height: 100vh;
-  & .spinner {
-    position: absolute;
-    top: 50%;
-    height: 100vh;
-  }
-}
-
-.main-content p {
-  font-size: 18px;
-  line-height: 1.6;
-}
-
-.horror-box {
+.celebrity-box {
   display: flex;
   flex-direction: column;
   vertical-align: middle;
@@ -47,28 +15,6 @@ body {
   width: 100%;
   min-height: fit-content;
   overflow: auto;
-  height: calc(100vh - 95px);
-  box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
-}
-
-.main-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding: 10px;
-}
-
-@media only screen and (min-width: 993px) {
-  .horror-story-container {
-    max-width: 70%;
-  }
-}
-@media only screen and (max-width: 992px) {
-  .horror-story-container {
-    max-width: 95%;
-  }
-}
-.horror-story-container {
-  z-index: 2;
-  overflow: visible !important;
+  height: calc(100vh - 70px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }

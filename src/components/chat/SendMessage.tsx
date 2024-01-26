@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { sendMessage } from '@utils/helpers';
-import { auth, db } from '../../../firebase';
-import { Message } from 'src/types';
 import { OpenAiMessage } from '@utils/OpenAIStream';
+import { Message } from 'src/types';
+import { auth, db } from '../../../firebase';
+import css from './SendMessage.module.css';
 
 type SendMessageProps = {
   scroll: React.RefObject<HTMLSpanElement>;
@@ -97,10 +98,13 @@ const SendMessage = ({ scroll, messages, celebrityName }: SendMessageProps) => {
   };
 
   return (
-    <form onSubmit={(event) => sendUserMessage(event)} className="send-message">
-      <div className="message-container">
+    <form
+      onSubmit={(event) => sendUserMessage(event)}
+      className={css.sendMessage}
+    >
+      <div className={css.messageContainer}>
         {isLoading && <span>Violet is typing ...</span>}
-        <div className="message-input">
+        <div className={css.messageInput}>
           <label htmlFor="messageInput" hidden>
             Enter Message
           </label>
@@ -108,7 +112,6 @@ const SendMessage = ({ scroll, messages, celebrityName }: SendMessageProps) => {
             id="messageInput"
             name="messageInput"
             type="text"
-            className="form-input__input"
             placeholder="type message..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}

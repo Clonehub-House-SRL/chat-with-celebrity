@@ -12,6 +12,7 @@ import { auth, db } from '../../../firebase';
 import MessageComponent from './MessageComponent';
 import SendMessage from './SendMessage';
 import { Message } from 'src/types';
+import css from './Chatbox.module.css';
 
 const ChatBox = ({ celebrityName }: { celebrityName: string }) => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -44,12 +45,12 @@ const ChatBox = ({ celebrityName }: { celebrityName: string }) => {
     <Box
       margin="0px"
       color="white"
-      className="horror-box"
+      className="celebrity-box"
       rounded="md"
       backgroundImage="/celebrity-pool-party.jpg"
     >
-      <main className="chat-box">
-        <div className="messages-wrapper">
+      <main className={css.chatBox}>
+        <div className={css.messagesWrapper}>
           {messages?.map((message: Message) => (
             <MessageComponent key={message.createdAt} message={message} />
           ))}

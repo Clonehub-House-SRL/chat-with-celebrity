@@ -5,6 +5,7 @@ import { Box, Spinner } from '@chakra-ui/react';
 import { Footer, Header, CelebritySelection } from '@components';
 import ChatBox from '@components/chat/Chatbox';
 import { auth } from '../../firebase';
+import css from './index.module.css';
 
 const CelebritySelectPage = () => {
   const [user, loading] = useAuthState(auth);
@@ -25,16 +26,21 @@ const CelebritySelectPage = () => {
   };
 
   return (
-    <div className="main-page">
+    <div className={css.mainPage}>
       <Header />
-      <main className="main-content">
+      <main className={css.mainContent}>
         {loading ? (
-          <Box margin="0px" color="white" className="horror-box" rounded="md">
+          <Box
+            margin="0px"
+            color="white"
+            className="celebrity-box"
+            rounded="md"
+          >
             <div className="spinner">
               <Spinner size={'xl'} />
             </div>
           </Box>
-        ) : isEntered ? (
+        ) : isEntered || user ? (
           <ChatBox celebrityName={name} />
         ) : (
           <CelebritySelection
