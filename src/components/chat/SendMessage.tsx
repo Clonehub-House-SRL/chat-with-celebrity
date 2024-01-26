@@ -8,6 +8,7 @@ import { OpenAiMessage } from '@utils/OpenAIStream';
 type SendMessageProps = {
   scroll: React.RefObject<HTMLSpanElement>;
   messages: Message[];
+  celebrityName: string;
 };
 
 type OpenAiUser = {
@@ -16,11 +17,11 @@ type OpenAiUser = {
   uid: string;
 };
 
-const SendMessage = ({ scroll, messages }: SendMessageProps) => {
+const SendMessage = ({ scroll, messages, celebrityName }: SendMessageProps) => {
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const systemUser: OpenAiUser = {
-    name: 'Violet',
+    name: celebrityName,
     photoUrl: process.env.NEXT_PUBLIC_FIREBASE_OPENAI_PHOTO_URL ?? '',
     uid: process.env.NEXT_PUBLIC_FIREBASE_OPENAI_USERID ?? '',
   };
@@ -68,10 +69,14 @@ const SendMessage = ({ scroll, messages }: SendMessageProps) => {
       return { content: message.text, role: message.role };
     });
 
+    console.log(
+      'Printing content',
+      `Impersonate ${celebrityName} that will discuss any topic in a very casual manner.`
+    );
+
     const messageWithHistory: OpenAiMessage[] = [
       {
-        content:
-          'You are Violet, a female ghost that reluctantly answers questions with sarcastic responses',
+        content: `Impersonate ${celebrityName} that will discuss any topic in a very casual manner.`,
         role: 'system',
       },
       ...prevMessages,
@@ -87,7 +92,7 @@ const SendMessage = ({ scroll, messages }: SendMessageProps) => {
       createdAt: serverTimestamp(),
       uid: systemUser.uid,
       currentUserUid: auth.currentUser?.uid,
-      role: 'assistant',
+      role: 'system',
     });
   };
 

@@ -1,51 +1,98 @@
-import React, { useEffect } from 'react';
-import { Box, Collapse, useDisclosure } from '@chakra-ui/react';
-import { useToast } from '@chakra-ui/react';
-import { StoryProps } from '../pages';
+import React, { useEffect, useState } from 'react';
+import {
+  Box,
+  Stack,
+  Card,
+  CardHeader,
+  CardBody,
+  Select,
+  Heading,
+  StackDivider,
+  Input,
+  Text,
+  Image,
+  FormControl,
+  Button,
+} from '@chakra-ui/react';
+import css from './CelebritySelection.module.css';
 
-const CelebritySelection = ({ story }: StoryProps) => {
-  const { isOpen, onToggle } = useDisclosure();
-  const toast = useToast();
+export type CelebritySelectionProps = {
+  onClick: () => void;
+  setName: (value: React.SetStateAction<string>) => void;
+  celebrityName: string;
+};
+
+const CelebritySelection = ({
+  onClick,
+  setName,
+  celebrityName,
+}: CelebritySelectionProps) => {
+  const [input, setInput] = useState('');
+  const [isEnterEnabled, setIsEnterEnabled] = useState(false);
+  const handleInputChange = (e: any) => setInput(e.target.value);
+  const handleCelebritySelection = (e: any) => setName(e.target.value);
 
   useEffect(() => {
-    onToggle();
-    const toaster = toast({
-      containerStyle: {
-        fontFamily: 'Amatic SC, sans-serif',
-        fontSize: '20px',
-        fontWeight: 800,
-      },
-      status: 'success',
-      description: 'Login to chat with a ghost!',
-      duration: null,
-      isClosable: true,
-    });
-
-    return () => toast.close(toaster);
-  }, [toast]);
+    const shouldEnter = input.length > 1 && Boolean(celebrityName.length);
+    setIsEnterEnabled(shouldEnter);
+  }, [input, celebrityName]);
 
   return (
-    <Box
-      margin="0px"
-      color="white"
-      backgroundImage="/header-image-halloween.jpg"
-      className="horror-box"
-      rounded="md"
-    >
-      <Collapse in={isOpen} animateOpacity className="horror-story-container">
-        <Box
-          p="40px"
-          color="white"
-          mt="4"
-          mb="4"
-          bgGradient="linear(to-t, green.500, rgba(35, 78, 82, .7))"
-          rounded="md"
-          shadow="md"
-        >
-          {story}
-        </Box>
-      </Collapse>
-    </Box>
+    <Card width={600} className={css.CelebritySelectionCard}>
+      <CardHeader>
+        <Image
+          src="/celebrity-chat-card.jpg"
+          alt="Green double couch with wooden legs"
+          borderRadius="lg"
+        />
+        <Heading size="md" pt="3">
+          The Ultimate Celebrity Interactive Experience
+        </Heading>
+        <Text fontSize="xl">
+          The show where dreams come true! Tonight, get ready to immerse
+          yourself in an extraordinary event where you can personally connect
+          and converse with your beloved celebrities.
+        </Text>
+      </CardHeader>
+
+      <CardBody>
+        <Stack divider={<StackDivider />} spacing="4">
+          <Box>
+            <Select
+              placeholder="Select celebrity"
+              onChange={handleCelebritySelection}
+              required
+            >
+              <option value="Johny Depp">Johny Depp</option>
+              <option value="Barack Obama">Barack Obama</option>
+            </Select>
+          </Box>
+          <Box>
+            <FormControl>
+              <Heading pb="2" fontSize="sm" size="xs" textTransform="uppercase">
+                Enter your name
+              </Heading>
+              <Input
+                type="name"
+                value={input}
+                onChange={handleInputChange}
+                required
+              />
+            </FormControl>
+            {isEnterEnabled && (
+              <Button
+                colorScheme="teal"
+                variant="outline"
+                mt="4"
+                onClick={onClick}
+              >
+                Enter
+              </Button>
+            )}
+          </Box>
+        </Stack>
+      </CardBody>
+    </Card>
   );
 };
 

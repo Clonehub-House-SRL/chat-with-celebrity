@@ -3,7 +3,6 @@
 body {
   margin: 0;
   font-family: 'Helvetica Neue', sans-serif;
-  background-color: black;
   color: #fff;
   line-height: 100vh;
 }
@@ -17,35 +16,17 @@ body {
   }
 }
 
-.horror-page {
+.main-page {
   text-align: center;
 }
 
-.horror-header {
-  display: flex;
-  align-items: center;
-  background-color: darkred;
-  padding: 20px;
-  font-family: 'Amatic SC', sans-serif;
-  & h1 {
-    font-size: 3rem;
-    animation: squiggly-anim 1s linear infinite;
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 100px;
-    width: 100%;
-    outline: none;
-    text-align: center;
-  }
-}
-
-.horror-content {
+.main-content {
   display: flex;
   flex-direction: column;
   vertical-align: middle;
   align-items: center;
   padding: 20px;
-  background-color: black;
+  height: 100vh;
   & .spinner {
     position: absolute;
     top: 50%;
@@ -53,7 +34,7 @@ body {
   }
 }
 
-.horror-content p {
+.main-content p {
   font-size: 18px;
   line-height: 1.6;
 }
@@ -66,17 +47,15 @@ body {
   width: 100%;
   min-height: fit-content;
   overflow: auto;
-  height: calc(100vh - 196px);
+  height: calc(100vh - 95px);
   box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
 }
 
-.horror-footer {
-  background-color: darkred;
+.main-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   padding: 10px;
-}
-
-.horror-footer p {
-  margin: 0;
 }
 
 @media only screen and (min-width: 993px) {

@@ -1,34 +1,47 @@
+import { useState } from 'react';
+import { signInAnonymously } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Box, Spinner } from '@chakra-ui/react';
 import { Footer, Header, CelebritySelection } from '@components';
 import ChatBox from '@components/chat/Chatbox';
-// import { auth } from '../../firebase';
+import { auth } from '../../firebase';
 
-export type StoryProps = {
-  story: string;
-};
+const CelebritySelectPage = () => {
+  const [user, loading] = useAuthState(auth);
+  const [name, setName] = useState('');
+  const [isEntered, setIsEntered] = useState(false);
 
-const CelebritySelectPage = ({ story }: StoryProps) => {
-  // const [user, loading] = useAuthState(auth);
+  const onClickHandler = () => {
+    setIsEntered(true);
+    anonymousSignIn();
+  };
+
+  const anonymousSignIn = async () => {
+    await signInAnonymously(auth);
+  };
+
+  const signOut = () => {
+    auth.signOut();
+  };
 
   return (
-    <div className="horror-page">
+    <div className="main-page">
       <Header />
-      <main className="horror-content">
-        {false ? (
-          <Box
-            margin="0px"
-            color="white"
-            backgroundImage="/header-image-halloween.jpg"
-            className="horror-box"
-            rounded="md"
-          >
+      <main className="main-content">
+        {loading ? (
+          <Box margin="0px" color="white" className="horror-box" rounded="md">
             <div className="spinner">
               <Spinner size={'xl'} />
             </div>
           </Box>
+        ) : isEntered ? (
+          <ChatBox celebrityName={name} />
         ) : (
-          <CelebritySelection story={story} />
+          <CelebritySelection
+            onClick={onClickHandler}
+            setName={setName}
+            celebrityName={name}
+          />
         )}
       </main>
       <Footer />

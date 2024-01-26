@@ -13,7 +13,7 @@ import MessageComponent from './MessageComponent';
 import SendMessage from './SendMessage';
 import { Message } from 'src/types';
 
-const ChatBox = () => {
+const ChatBox = ({ celebrityName }: { celebrityName: string }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const scroll = useRef<HTMLSpanElement>(null);
 
@@ -44,9 +44,9 @@ const ChatBox = () => {
     <Box
       margin="0px"
       color="white"
-      backgroundImage="/header-image-halloween.jpg"
       className="horror-box"
       rounded="md"
+      backgroundImage="/celebrity-pool-party.jpg"
     >
       <main className="chat-box">
         <div className="messages-wrapper">
@@ -56,7 +56,11 @@ const ChatBox = () => {
           {/* when a new message enters the chat, the screen scrolls down to the scroll div */}
           {scroll && <span ref={scroll}></span>}
         </div>
-        <SendMessage scroll={scroll} messages={messages} />
+        <SendMessage
+          scroll={scroll}
+          messages={messages}
+          celebrityName={celebrityName}
+        />
       </main>
     </Box>
   );
