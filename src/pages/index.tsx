@@ -9,7 +9,8 @@ import css from './index.module.css';
 
 const CelebritySelectPage = () => {
   const [user, loading] = useAuthState(auth);
-  const [name, setName] = useState('');
+  const [celebrityName, setCelebrityName] = useState('');
+  const [userName, setUserName] = useState('');
   const [isEntered, setIsEntered] = useState(false);
 
   const onClickHandler = () => {
@@ -37,12 +38,14 @@ const CelebritySelectPage = () => {
             </div>
           </Box>
         ) : isEntered || user ? (
-          <ChatBox celebrityName={name} />
+          <ChatBox celebrityName={celebrityName} userName={userName} />
         ) : (
           <CelebritySelection
             onClick={onClickHandler}
-            setName={setName}
-            celebrityName={name}
+            setCelebrityName={setCelebrityName}
+            celebrityName={celebrityName}
+            setUserName={setUserName}
+            userName={userName}
           />
         )}
       </main>

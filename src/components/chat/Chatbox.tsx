@@ -16,7 +16,13 @@ import MessageComponent from './MessageComponent';
 import SendMessage from './SendMessage';
 import css from './Chatbox.module.css';
 
-const ChatBox = ({ celebrityName }: { celebrityName: string }) => {
+const ChatBox = ({
+  celebrityName,
+  userName,
+}: {
+  celebrityName: string;
+  userName: string;
+}) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [user] = useAuthState(auth);
   const scroll = useRef<HTMLSpanElement>(null);
@@ -64,6 +70,7 @@ const ChatBox = ({ celebrityName }: { celebrityName: string }) => {
           scroll={scroll}
           messages={messages}
           celebrityName={celebrityName}
+          userName={userName}
         />
       </main>
     </Box>

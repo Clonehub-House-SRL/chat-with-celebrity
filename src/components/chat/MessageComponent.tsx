@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Image from 'next/image';
+import Avatar from 'react-avatar';
 import { Message } from '@types';
 
 import { auth } from '../../../firebase';
@@ -19,13 +20,7 @@ const MessageComponent = ({ message }: MessageComponentProps) => {
         message.uid === user?.uid ? css.right : ''
       }`}
     >
-      <Image
-        className={css.chatBubble__left}
-        src={message.avatar}
-        alt="user avatar"
-        width={35}
-        height={35}
-      />
+      <Avatar name={message.name} className={css.chatBubble__left} size="35" />
       <div className={css.chatBubble__right}>
         <p className={css.userName}>{message.name}</p>
         <p className={css.userMessage}>{message.text}</p>

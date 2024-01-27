@@ -18,24 +18,27 @@ import css from './CelebritySelection.module.css';
 
 export type CelebritySelectionProps = {
   onClick: () => void;
-  setName: (value: React.SetStateAction<string>) => void;
+  setCelebrityName: (value: React.SetStateAction<string>) => void;
   celebrityName: string;
+  setUserName: (value: React.SetStateAction<string>) => void;
+  userName: string;
 };
 
 const CelebritySelection = ({
   onClick,
-  setName,
+  setCelebrityName,
   celebrityName,
+  setUserName,
+  userName,
 }: CelebritySelectionProps) => {
-  const [input, setInput] = useState('');
   const [isEnterEnabled, setIsEnterEnabled] = useState(false);
-  const handleInputChange = (e: any) => setInput(e.target.value);
-  const handleCelebritySelection = (e: any) => setName(e.target.value);
+  const handleInputChange = (e: any) => setUserName(e.target.value);
+  const handleCelebritySelection = (e: any) => setCelebrityName(e.target.value);
 
   useEffect(() => {
-    const shouldEnter = input.length > 1 && Boolean(celebrityName.length);
+    const shouldEnter = userName.length > 1 && Boolean(celebrityName.length);
     setIsEnterEnabled(shouldEnter);
-  }, [input, celebrityName]);
+  }, [userName, celebrityName]);
 
   return (
     <Card width={600} className={css.CelebritySelectionCard}>
@@ -74,7 +77,7 @@ const CelebritySelection = ({
               </Heading>
               <Input
                 type="name"
-                value={input}
+                value={userName}
                 onChange={handleInputChange}
                 required
               />

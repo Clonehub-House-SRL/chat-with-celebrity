@@ -22,15 +22,20 @@ type SendMessageProps = {
   scroll: React.RefObject<HTMLSpanElement>;
   messages: Message[];
   celebrityName: string;
+  userName: string;
 };
 
 type OpenAiUser = {
   name: string;
-  photoUrl: string;
   uid: string;
 };
 
-const SendMessage = ({ scroll, messages, celebrityName }: SendMessageProps) => {
+const SendMessage = ({
+  scroll,
+  messages,
+  celebrityName,
+  userName,
+}: SendMessageProps) => {
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -38,7 +43,6 @@ const SendMessage = ({ scroll, messages, celebrityName }: SendMessageProps) => {
 
   const systemUser: OpenAiUser = {
     name: celebrityName,
-    photoUrl: process.env.NEXT_PUBLIC_FIREBASE_OPENAI_PHOTO_URL ?? '',
     uid: process.env.NEXT_PUBLIC_FIREBASE_OPENAI_USERID ?? '',
   };
 
@@ -58,7 +62,7 @@ const SendMessage = ({ scroll, messages, celebrityName }: SendMessageProps) => {
     const { uid } = auth.currentUser;
     await addDoc(collection(db, 'messages'), {
       text: message,
-      name: 'You',
+      name: userName,
       avatar: '/anon_user_avatar.jpg',
       createdAt: serverTimestamp(),
       currentUserUid: auth.currentUser.uid,
@@ -99,7 +103,6 @@ const SendMessage = ({ scroll, messages, celebrityName }: SendMessageProps) => {
     await addDoc(collection(db, 'messages'), {
       text: reply,
       name: systemUser.name,
-      avatar: systemUser.photoUrl,
       createdAt: serverTimestamp(),
       uid: systemUser.uid,
       currentUserUid: auth.currentUser?.uid,
