@@ -4,7 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <meta property="og:title" content="Your daily horror story" />
+        <meta property="og:title" content="Chat with a celebrity" />
         <meta property="og:type" content="article" />
         <meta
           property="og:url"
@@ -12,7 +12,7 @@ export default function Document() {
         />
         <meta
           property="og:image"
-          content="https://www.daily-horror-story.com/header-image-halloween.jpg"
+          content="https://www.chat-with-celebrities.com/celebrity-chat-card.jpg"
         />
         <meta
           property="og:description"
