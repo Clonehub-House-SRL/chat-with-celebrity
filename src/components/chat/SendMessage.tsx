@@ -106,7 +106,7 @@ const SendMessage = ({
       createdAt: serverTimestamp(),
       uid: systemUser.uid,
       currentUserUid: auth.currentUser?.uid,
-      role: 'system',
+      role: 'assistant',
     });
   };
 
