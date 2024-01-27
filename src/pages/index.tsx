@@ -11,10 +11,8 @@ const CelebritySelectPage = () => {
   const [user, loading] = useAuthState(auth);
   const [celebrityName, setCelebrityName] = useState('');
   const [userName, setUserName] = useState('');
-  const [isEntered, setIsEntered] = useState(false);
 
   const onClickHandler = () => {
-    setIsEntered(true);
     anonymousSignIn();
   };
 
@@ -37,7 +35,7 @@ const CelebritySelectPage = () => {
               <Spinner size={'xl'} />
             </div>
           </Box>
-        ) : isEntered || user ? (
+        ) : user ? (
           <ChatBox celebrityName={celebrityName} userName={userName} />
         ) : (
           <CelebritySelection

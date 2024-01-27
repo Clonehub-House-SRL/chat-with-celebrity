@@ -121,7 +121,7 @@ const SendMessage = ({
       className={css.sendMessage}
     >
       <div className={css.messageContainer}>
-        {isLoading && <span>Violet is typing ...</span>}
+        {isLoading && <span>{celebrityName} is typing ...</span>}
         <div className={css.messageInput}>
           <label htmlFor="messageInput" hidden>
             Enter Message
