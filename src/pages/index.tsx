@@ -21,10 +21,6 @@ const CelebritySelectPage = () => {
     await signInAnonymously(auth);
   };
 
-  const signOut = () => {
-    auth.signOut();
-  };
-
   return (
     <div className={css.mainPage}>
       <Header />

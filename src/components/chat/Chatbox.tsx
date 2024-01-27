@@ -7,23 +7,26 @@ import {
   onSnapshot,
   limit,
 } from 'firebase/firestore';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Box } from '@chakra-ui/react';
+import { Message } from '@types';
+
 import { auth, db } from '../../../firebase';
 import MessageComponent from './MessageComponent';
 import SendMessage from './SendMessage';
-import { Message } from 'src/types';
 import css from './Chatbox.module.css';
 
 const ChatBox = ({ celebrityName }: { celebrityName: string }) => {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [user] = useAuthState(auth);
   const scroll = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    if (!auth.currentUser) return;
+    if (!user) return;
 
     const messageQuery = query(
       collection(db, 'messages'),
-      where('currentUserUid', '==', auth.currentUser.uid),
+      where('currentUserUid', '==', user.uid),
       orderBy('createdAt', 'desc'),
       limit(50)
     );
@@ -39,7 +42,7 @@ const ChatBox = ({ celebrityName }: { celebrityName: string }) => {
       setMessages(sortedMessages);
     });
     return () => unsubscribe();
-  }, []);
+  }, [user]);
 
   return (
     <Box

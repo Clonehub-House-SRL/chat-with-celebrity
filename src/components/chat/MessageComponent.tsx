@@ -1,7 +1,8 @@
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Image from 'next/image';
-import { Message } from 'src/types';
+import { Message } from '@types';
+
 import { auth } from '../../../firebase';
 import css from './MessageComponent.module.css';
 

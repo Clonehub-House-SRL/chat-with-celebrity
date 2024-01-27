@@ -26,6 +26,7 @@
       "@utils/*": ["./src/utils/*"],
       "@styles/*": ["./src/styles/*"],
       "@theme": ["./src/theme"],
+      "@types": ["./src/types"],
       "@layout": ["./src/layout/Layout"]
     }
   },

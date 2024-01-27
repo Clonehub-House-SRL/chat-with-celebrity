@@ -1,8 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+  AlertDialogCloseButton,
+  useDisclosure,
+  Button,
+} from '@chakra-ui/react';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { sendMessage } from '@utils/helpers';
 import { OpenAiMessage } from '@utils/OpenAIStream';
-import { Message } from 'src/types';
+import { Message } from '@types';
+
 import { auth, db } from '../../../firebase';
 import css from './SendMessage.module.css';
 
@@ -21,6 +33,9 @@ type OpenAiUser = {
 const SendMessage = ({ scroll, messages, celebrityName }: SendMessageProps) => {
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = React.useRef() as React.RefObject<HTMLButtonElement>;
+
   const systemUser: OpenAiUser = {
     name: celebrityName,
     photoUrl: process.env.NEXT_PUBLIC_FIREBASE_OPENAI_PHOTO_URL ?? '',
@@ -29,7 +44,7 @@ const SendMessage = ({ scroll, messages, celebrityName }: SendMessageProps) => {
 
   useEffect(() => {
     scroll.current?.scrollIntoView();
-  }, [scroll.current]);
+  }, [scroll]);
 
   const sendUserMessage = async (event: any) => {
     event.preventDefault();
@@ -70,11 +85,6 @@ const SendMessage = ({ scroll, messages, celebrityName }: SendMessageProps) => {
       return { content: message.text, role: message.role };
     });
 
-    console.log(
-      'Printing content',
-      `Impersonate ${celebrityName} that will discuss any topic in a very casual manner.`
-    );
-
     const messageWithHistory: OpenAiMessage[] = [
       {
         content: `Impersonate ${celebrityName} that will discuss any topic in a very casual manner.`,
@@ -97,6 +107,11 @@ const SendMessage = ({ scroll, messages, celebrityName }: SendMessageProps) => {
     });
   };
 
+  const signOut = () => {
+    auth.signOut();
+    onClose();
+  };
+
   return (
     <form
       onSubmit={(event) => sendUserMessage(event)}
@@ -112,12 +127,48 @@ const SendMessage = ({ scroll, messages, celebrityName }: SendMessageProps) => {
             id="messageInput"
             name="messageInput"
             type="text"
-            placeholder="type message..."
+            placeholder="Type your message..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
-          <button type="submit">Send</button>
+          <Button
+            type="submit"
+            className={css.sendButton}
+            colorScheme="whiteAlpha"
+          >
+            Send
+          </Button>
+          <Button
+            colorScheme="blackAlpha"
+            className={css.sendButton}
+            onClick={onOpen}
+          >
+            Exit
+          </Button>
         </div>
+        <AlertDialog
+          motionPreset="slideInBottom"
+          leastDestructiveRef={cancelRef}
+          onClose={onClose}
+          isOpen={isOpen}
+          isCentered
+        >
+          <AlertDialogOverlay />
+
+          <AlertDialogContent>
+            <AlertDialogHeader>Really exit?</AlertDialogHeader>
+            <AlertDialogCloseButton />
+            <AlertDialogBody>All message history will be lost.</AlertDialogBody>
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose}>
+                Cancel
+              </Button>
+              <Button colorScheme="red" ml={3} onClick={signOut}>
+                Exit
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </form>
   );
