@@ -40,6 +40,7 @@ const SendMessage = ({
   const [isLoading, setIsLoading] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef() as React.RefObject<HTMLButtonElement>;
+  const inputRef = React.useRef() as React.RefObject<HTMLInputElement>;
 
   const systemUser: OpenAiUser = {
     name: celebrityName,
@@ -48,7 +49,7 @@ const SendMessage = ({
 
   useEffect(() => {
     scroll.current?.scrollIntoView();
-  }, [scroll]);
+  }, [scroll, message]);
 
   const sendUserMessage = async (event: any) => {
     event.preventDefault();
@@ -70,11 +71,9 @@ const SendMessage = ({
       uid,
     });
 
-    scroll.current?.scrollIntoView({ behavior: 'smooth' });
-
+    scroll.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
     await sendOpenAIResponseMessage(message);
-
-    scroll.current?.scrollIntoView({ behavior: 'smooth' });
+    scroll.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
     setMessage('');
     setIsLoading(false);
   };
@@ -91,7 +90,7 @@ const SendMessage = ({
 
     const messageWithHistory: OpenAiMessage[] = [
       {
-        content: `Impersonate ${celebrityName} that will discuss any topic in a very casual manner.`,
+        content: `Reply like you are the real ${celebrityName} that will discuss any topic in a very casual manner. If asked, you need to verify that you are the real ${celebrityName}`,
         role: 'system',
       },
       ...prevMessages,
@@ -108,6 +107,7 @@ const SendMessage = ({
       currentUserUid: auth.currentUser?.uid,
       role: 'assistant',
     });
+    inputRef.current?.focus();
   };
 
   const signOut = () => {
@@ -131,6 +131,7 @@ const SendMessage = ({
             name="messageInput"
             type="text"
             placeholder="Type your message..."
+            ref={inputRef}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />

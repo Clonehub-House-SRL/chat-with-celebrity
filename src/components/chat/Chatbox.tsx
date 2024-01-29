@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, createRef, useState } from 'react';
 import {
   query,
   where,
@@ -25,7 +25,7 @@ const ChatBox = ({
 }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [user] = useAuthState(auth);
-  const scroll = useRef<HTMLSpanElement>(null);
+  const scroll = createRef<HTMLSpanElement>();
 
   useEffect(() => {
     if (!user) return;

@@ -41,7 +41,7 @@ export const sendMessage = async (messages: OpenAiMessage[]) => {
   const payload: OpenAIMessageChatCompletionsPayload = {
     model: 'gpt-3.5-turbo',
     messages,
-    temperature: 0.77,
+    temperature: 1.5,
     top_p: 1,
     frequency_penalty: 0.5,
     presence_penalty: 0.5,

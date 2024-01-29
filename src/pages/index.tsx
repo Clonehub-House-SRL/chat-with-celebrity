@@ -22,7 +22,6 @@ const CelebritySelectPage = () => {
 
   return (
     <div className={css.mainPage}>
-      <Header />
       <main className={css.mainContent}>
         {loading ? (
           <Box
